@@ -4,7 +4,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class FirstTest {
     public static void main(String[] arg) {
-        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.get("http://google.com");
         driver.findElement(By.name("q")).sendKeys("Selenium");

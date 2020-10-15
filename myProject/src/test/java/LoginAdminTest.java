@@ -5,9 +5,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class LoginAdminTest {
     private WebDriver driver;
+
     @BeforeEach
     public void openBrowser(){
-        System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
         driver = new ChromeDriver();
     }
 
