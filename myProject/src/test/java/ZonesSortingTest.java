@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
@@ -39,8 +40,9 @@ public class ZonesSortingTest {
             wait.until(presenceOfElementLocated(By.cssSelector("select[name*='zone_code']")));
             int size2 = driver.findElements(By.cssSelector("select[name*='zone_code']")).size();
             for (int j = 0; j < size2; j++) {
-                zones.add(driver.findElements(By.cssSelector("select[name*='zone_code']")).get(j).getText());
-                zonesSorted.add(driver.findElements(By.cssSelector("select[name*='zone_code']")).get(j).getText());
+                Select select = new Select(driver.findElements(By.cssSelector("select[name*='zone_code']")).get(j));
+                zones.add(select.getFirstSelectedOption().getText());
+                zonesSorted.add(select.getFirstSelectedOption().getText());
             }
             Collections.sort(zonesSorted);
             for (int j = 0; j < size2; j++) {
