@@ -17,15 +17,19 @@ public class CheckStickersTest {
     @Test
     public void checkStickers() {
        driver.get("http://localhost/litecart/en/");
-       //Опеределение количества карточек с товарами
-       int cards = driver.findElements(By.cssSelector("li[class='product column shadow hover-light']")).size();
-       //Определение количества стикеров
+
+
+       int size = driver.findElements(By.cssSelector("li[class='product column shadow hover-light']")).size();
+        for (int i = 0; i < size; i++) {
+            driver.findElements(By.cssSelector("li[class='product column shadow hover-light'] div[class*=sticker]")).get(i);
+        }
+     /*  //Определение количества стикеров
        int stickers = driver.findElements(By.cssSelector("li[class='product column shadow hover-light'] div[class*=sticker]")).size();
        //Проверка равенства этих количеств
         Assertions.assertEquals(cards,stickers);
         //Проверка отсутствия карточек, у которых есть два или более стикера
        int doubleSticker = driver.findElements(By.cssSelector("div[class*=sticker]:nth-of-type(2)")).size();
-        Assertions.assertEquals(0,doubleSticker);
+        Assertions.assertEquals(0,doubleSticker);*/
     }
 
     @AfterEach

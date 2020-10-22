@@ -20,7 +20,6 @@ public class ClickMenuTest {
     public void openBrowser() {
         driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 10/*seconds*/);
-        // driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
     }
 
     @Test
