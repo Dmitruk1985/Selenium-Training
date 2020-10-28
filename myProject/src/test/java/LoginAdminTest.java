@@ -11,6 +11,7 @@ public class LoginAdminTest {
     @BeforeEach
     public void openBrowser(){
         driver = new ChromeDriver();
+        wait = new WebDriverWait(driver, 10/*seconds*/);
     }
 
     @Test
