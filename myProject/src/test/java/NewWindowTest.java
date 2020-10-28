@@ -23,12 +23,12 @@ public class NewWindowTest {
 
     @BeforeEach
     public void openBrowser() {
-        driver = new FirefoxDriver();
+        driver = new ChromeDriver();
         wait = new WebDriverWait(driver, 10/*seconds*/);
     }
 
     @Test
-    public void newWindow() throws InterruptedException {
+    public void newWindow() {
         driver.get("http://localhost/litecart/admin/?app=countries&doc=countries");
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
@@ -42,12 +42,12 @@ public class NewWindowTest {
             Set<String> oldWindows = driver.getWindowHandles();
             driver.findElements(By.xpath(linkLocator)).get(i).click();
 
-           /* String newWindow = wait.until((WebDriver d) -> {
-                Set<String> newWindows = driver.getWindowHandles();
+            String newWindow = wait.until((WebDriver d) -> {
+                Set<String> newWindows = d.getWindowHandles();
                 String window = "";
                 Iterator<String> it = newWindows.iterator();
                 while (it.hasNext()) {
-                    String currentWindow=it.next();
+                    String currentWindow = it.next();
                     if (!oldWindows.contains(currentWindow)) {
                         window = currentWindow;
                         break;
@@ -55,27 +55,10 @@ public class NewWindowTest {
                 }
                 return window;
             });
-             driver.switchTo().window(newWindow);
-            */
-            Thread.sleep(1000);
-            driver.switchTo().window(thereIsWindowOtherThan(oldWindows));
+            driver.switchTo().window(newWindow);
             driver.close();
             driver.switchTo().window(mainWindow);
         }
-    }
-
-    String thereIsWindowOtherThan(Set<String> oldWindows) {
-        Set<String> newWindows = driver.getWindowHandles();
-        String newWindow = "";
-        Iterator<String> it = newWindows.iterator();
-        while (it.hasNext()) {
-            String currentWindow = it.next();
-            if (!oldWindows.contains(currentWindow)) {
-                newWindow = currentWindow;
-                break;
-            }
-        }
-        return newWindow;
     }
 
     @AfterEach
