@@ -10,31 +10,37 @@ public class CheckStickersTest {
     private WebDriver driver;
 
     @BeforeEach
-    public void openBrowser(){
+    public void openBrowser() {
         driver = new ChromeDriver();
     }
 
     @Test
     public void checkStickers() {
-       driver.get("http://localhost/litecart/en/");
-
-
-       int size = driver.findElements(By.cssSelector("li[class='product column shadow hover-light']")).size();
-        for (int i = 0; i < size; i++) {
-            driver.findElements(By.cssSelector("li[class='product column shadow hover-light'] div[class*=sticker]")).get(i);
+        driver.get("http://localhost/litecart/en/");
+        String locator = "";
+        for (int i = 1; i <= 3; i++) {
+            switch (i) {
+                case 1:
+                    locator = "box-most-popular";
+                    break;
+                case 2:
+                    locator = "box-campaigns";
+                    break;
+                case 3:
+                    locator = "box-latest-products";
+                    break;
+            }
+            int size = driver.findElements(By.cssSelector("div#" + locator + " li[class='product column shadow hover-light']")).size();
+            for (int j = 1; j <= size; j++) {
+                int stickers = driver.findElements(By.cssSelector("div#" + locator + " li[class='product column shadow hover-light']:nth-of-type(" + j + ") div[class*=sticker]")).size();
+                Assertions.assertEquals(1, stickers);
+            }
         }
-     /*  //Определение количества стикеров
-       int stickers = driver.findElements(By.cssSelector("li[class='product column shadow hover-light'] div[class*=sticker]")).size();
-       //Проверка равенства этих количеств
-        Assertions.assertEquals(cards,stickers);
-        //Проверка отсутствия карточек, у которых есть два или более стикера
-       int doubleSticker = driver.findElements(By.cssSelector("div[class*=sticker]:nth-of-type(2)")).size();
-        Assertions.assertEquals(0,doubleSticker);*/
     }
 
     @AfterEach
-    public void closeBrowser(){
+    public void closeBrowser() {
         driver.quit();
-        driver=null;
+        driver = null;
     }
 }
